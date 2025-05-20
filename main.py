@@ -45,7 +45,12 @@ def generate_summary(stats, keywords):
     print("\nSummary:")
     print(f"- The conversation had {stats['total']} exchanges.")
     print(f"- User sent {stats['user']} messages, AI sent {stats['ai']}.")
-    print("- Most common keywords:", ', '.join([word for word, _ in keywords]))
+    keyword_list = [word for word, _ in keywords]
+    print("- Most common keywords:", ', '.join(keyword_list))
+
+    if keyword_list:
+        main_topic = keyword_list[0]
+        print(f"- The user asked mainly about {main_topic} and its uses.")
 
 
 
