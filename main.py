@@ -39,6 +39,12 @@ def extract_keywords(user_msgs, ai_msgs, top_n=5):
     return freq.most_common(top_n)
 
 
+def generate_summary(stats, keywords):
+    print("Summary:")
+    print(f"- The conversation had {stats['total']} exchanges.")
+    print(f"- User sent {stats['user']} messages, AI sent {stats['ai']}.")
+    print("- Most common keywords:", ', '.join([word for word, _ in keywords]))
+
 
 
 if __name__ == "__main__":
