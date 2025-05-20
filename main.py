@@ -1,3 +1,12 @@
+import nltk
+from nltk.corpus import stopwords
+from collections import Counter
+import string
+
+nltk.download('stopwords')
+
+
+
 def parse_chat_log(file_path):
     user_messages = []
     ai_messages = []
@@ -11,6 +20,7 @@ def parse_chat_log(file_path):
                 ai_messages.append(line[3:].strip())
 
     return user_messages, ai_messages
+
 def message_statistics(user_msgs, ai_msgs):
     total = len(user_msgs) + len(ai_msgs)
     return {
@@ -18,6 +28,18 @@ def message_statistics(user_msgs, ai_msgs):
         "user": len(user_msgs),
         "ai": len(ai_msgs)
     }
+
+
+def extract_keywords(user_msgs, ai_msgs, top_n=5):
+    stop_words = set(stopwords.words('english'))
+    all_text = ' '.join(user_msgs + ai_msgs).lower()
+    words = all_text.translate(str.maketrans('', '', string.punctuation)).split()
+    filtered_words = [word for word in words if word not in stop_words]
+    freq = Counter(filtered_words)
+    return freq.most_common(top_n)
+
+
+
 
 if __name__ == "__main__":
     file_path = r"E:\chatbot\ai-chat-log-summarizer\samples\chat.txt"
