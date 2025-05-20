@@ -3,7 +3,9 @@ from nltk.corpus import stopwords
 from collections import Counter
 import string
 
+
 nltk.download('stopwords')
+
 
 
 
@@ -40,7 +42,7 @@ def extract_keywords(user_msgs, ai_msgs, top_n=5):
 
 
 def generate_summary(stats, keywords):
-    print("Summary:")
+    print("\nSummary:")
     print(f"- The conversation had {stats['total']} exchanges.")
     print(f"- User sent {stats['user']} messages, AI sent {stats['ai']}.")
     print("- Most common keywords:", ', '.join([word for word, _ in keywords]))
@@ -52,8 +54,5 @@ if __name__ == "__main__":
     user_msgs, ai_msgs = parse_chat_log(file_path)
 
     stats = message_statistics(user_msgs, ai_msgs)
-
-    print("Summary:")
-    print(f"- Total messages: {stats['total']}")
-    print(f"- User messages: {stats['user']}")
-    print(f"- AI messages: {stats['ai']}")
+    keywords = extract_keywords(user_msgs, ai_msgs)
+    generate_summary(stats, keywords)
